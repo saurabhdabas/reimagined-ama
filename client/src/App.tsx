@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import NavBar from './components/Navigation';
+import Banner from './components/Banner';
+import GiftBanner from './components/GiftBanner';
+import { createTheme, ThemeProvider } from '@mui/material';
 
-function App() {
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Merriweather',
+      'serif',
+    ].join(','),
+  }
+});
+
+const App = () : JSX.Element =>  {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <NavBar 
+          logo='../logo.png'
+          links={[
+            {name:'Membership & Rewards', route:'/membership'},
+            {name:'Auto', route:'/auto'},
+            {name:'Travel', route:'/travel'},
+            {name:'Home & Family', route:'/home-family'},
+            {name:'Insurance',route:'/insurance'}
+          ]}
+        />
+        <Banner/>
+        <GiftBanner/>
+        <Routes/>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
